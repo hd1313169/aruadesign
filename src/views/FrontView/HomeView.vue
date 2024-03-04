@@ -26,7 +26,7 @@
         />
         <img
           class="w-100 d-md-none"
-          src="../../assets/images/hero-mobile.png.png"
+          src="../../assets/images/hero-mobile.png"
           alt="hero"
         />
       </div>
