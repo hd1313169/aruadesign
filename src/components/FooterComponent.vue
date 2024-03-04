@@ -21,7 +21,7 @@
             style="width: 48px"
             alt="line"
           />
-          <p class="border px-12 py-2 rounded-pill fs-12">
+          <p class="border px-12 py-2 rounded-pill fs-12 ff-zh">
             LINE Official Account
           </p>
         </a>
@@ -39,7 +39,7 @@
             style="width: 48px"
             alt="line"
           />
-          <p class="border px-12 py-2 rounded-pill fs-12">官方 Pinterest</p>
+          <p class="border px-12 py-2 rounded-pill fs-12 ff-zh">官方 Pinterest</p>
         </a>
       </div>
       <div
