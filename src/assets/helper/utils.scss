@@ -2,6 +2,10 @@
     letter-spacing: 2px;
 }
 
+img {
+    object-fit: cover;
+}
+
 li {
     list-style: none;
 }
@@ -79,6 +83,174 @@ li {
 
 .ff-zh {
     font-family: "noto serif tc";
+}
+
+.ff-en {
+    font-family: "benne";
+}
+
+* {
+    letter-spacing: 2px;
+}
+
+li {
+    list-style: none;
+}
+
+.navbar-nav {
+    flex-direction: row !important;
+}
+
+.w-33 {
+    width: 33.333% !important;
+}
+
+.w-66 {
+    width: 66.666% !important;
+}
+
+.w-sm-33 {
+    @media (min-width: 576px) {
+        width: 33.333% !important;
+    }
+}
+
+.w-sm-66 {
+    @media (min-width: 576px) {
+        width: 66.666% !important;
+    }
+}
+
+.w-sm-100 {
+    @media (min-width: 576px) {
+        width: 100% !important;
+    }
+}
+
+.w-md-33 {
+    @media (min-width: 768px) {
+        width: 33.333% !important;
+    }
+}
+
+.w-md-66 {
+    @media (min-width: 768px) {
+        width: 66.666% !important;
+    }
+}
+
+.w-md-100 {
+    @media (min-width: 768px) {
+        width: 100% !important;
+    }
+}
+
+.w-lg-33 {
+    @media (min-width: 992px) {
+        width: 33.333% !important;
+    }
+}
+
+.w-lg-66 {
+    @media (min-width: 992px) {
+        width: 66.666% !important;
+    }
+}
+
+.text-deco {
+    width: 50%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: clip;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    z-index: -1;
+}
+
+.ff-zh {
+    font-family: "noto serif tc";
+}
+
+.swipe {
+    &-img {
+        width: 400px;
+
+        @media (min-width: 768px) {
+            width: 100%;
+        }
+    }
+
+}
+
+.fab{
+    z-index: 9999;
+}
+.products {
+    &-submenu {
+        position: relative;
+
+        &:before {
+            content: "";
+            width: 0.5px;
+            height: 50%;
+            background-color: $secondary;
+            position: absolute;
+            top: 50;
+            left: 0;
+            transition: translate(-50%);
+        }
+
+        &:after {
+            content: "";
+            width: 0.5px;
+            height: 50%;
+            background-color: $secondary;
+            position: absolute;
+            top: 50;
+            right: 0;
+            transition: translate(-50%);
+        }
+    }
+
+    &-item {
+        position: relative;
+        width: 100%;
+        color: $primary;
+        font-family: "noto serif tc";
+        margin-bottom: 24px;
+        margin-right: 0;
+
+        img {
+            border-radius: 120px 120px 0 0;
+        }
+
+        &:hover {
+            img {
+                filter: brightness(1.02);
+            }
+        }
+
+        @media (min-width: 992px) {
+            width: calc(50% - 4px);
+            margin-right: 8px;
+            margin-bottom: 48px;
+
+            &:nth-child(even) {
+                margin-right: 0;
+            }
+
+            img {
+                border-radius: 200px 200px 0 0;
+            }
+        }
+
+        @media (min-width: 768px) {
+            img {
+                border-radius: 200px 200px 0 0;
+            }
+        }
+    }
 }
 
 .products {

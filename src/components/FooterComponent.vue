@@ -12,7 +12,7 @@
         class="w-md-33 border py-64 py-md-120 d-flex justify-content-center align-items-center"
       >
         <a
-          href="#"
+          href="https://tw.linebiz.com/login/" target="_blank"
           class="d-flex justify-content-center align-items-center flex-column"
         >
           <img
@@ -30,7 +30,7 @@
         class="w-md-33 border py-64 py-md-120 d-flex justify-content-center align-items-center"
       >
         <a
-          href="#"
+          href="https://www.pinterest.com/" target="_blank"
           class="d-flex justify-content-center align-items-center flex-column"
         >
           <img

@@ -4,7 +4,7 @@
     <div class="py-80 py-md-160 text-primary">
       <div class="row justify-content-md-between align-items-end mb-40">
         <div class="col-lg-7">
-          <p class="fs-64 lh-lg mb-16 mb-sm-24 mb-md-0">
+          <p class="fs-64 lh-lg mb-16 mb-sm-24 mb-md-0 ff-en">
             Brilliance of Beauty, <br />
             Achieved by Aura.
           </p>
@@ -46,7 +46,7 @@
           </p>
         </div>
       </div>
-      <p class="d-none d-md-block text-deco fs-120 text-gray-light">
+      <p class="d-none d-md-block text-deco fs-120 text-gray-light ff-en">
         Brilliance of Beauty, Achieved by Aura.
       </p>
     </div>
@@ -61,12 +61,12 @@
         class="d-flex justify-content-between align-items-center text-primary"
       >
         <h2>精選商品</h2>
-        <a class="d-flex align-items-start" href="#">
+        <routerLink to="products" class="d-flex align-items-center">
           <span class="me-4">查看全部</span>
           <span class="material-symbols-outlined">
             keyboard_double_arrow_right
           </span>
-        </a>
+        </routerLink>
       </div>
     </div>
 
