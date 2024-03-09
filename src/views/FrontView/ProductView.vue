@@ -48,8 +48,6 @@
               <p>數量</p>
               <select
                 v-model="qty"
-                name=""
-                id=""
                 class="w-50 py-8 px-8 border-primary text-primary"
               >
                 <option v-for="qty in 5" :key="qty" :value="qty">
@@ -59,7 +57,7 @@
             </div>
 
             <a
-              href="#"
+              @click.prevent="addToCart(product.id, 1)"
               class="d-block btn btn-primary text-center rounded-0 mb-40"
               >加入購物車</a
             >
@@ -98,20 +96,36 @@ const { VITE_URL, VITE_APP_PATH } = import.meta.env
 export default {
   data () {
     return {
-      product: {}
+      product: {},
+      qty: 1
     }
   },
   methods: {
+    // 產品列表
     getProduct () {
       const { id } = this.$route.params
       axios
         .get(`${VITE_URL}/v2/api/${VITE_APP_PATH}/product/${id}`)
         .then((res) => {
           this.product = res.data.product
-          console.log(this.product.imageUrl)
         })
         .catch((err) => {
           alert(err.response.data.message)
+        })
+    },
+    // 加入購物車
+    addToCart () {
+      // 參數預設值
+      // post 的 order 參數
+      const order = {
+        product_id: this.product.id,
+        qty: this.qty
+      }
+
+      axios
+        .post(`${VITE_URL}/v2/api/${VITE_APP_PATH}/cart`, { data: order })
+        .then((res) => {
+          alert(res.data.message)
         })
     }
   },

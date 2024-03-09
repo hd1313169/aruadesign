@@ -32,9 +32,17 @@
             <li class="nav-item d-none d-md-block">
               <router-link
                 to="carts"
-                class="nav-link text-primary border border-primary rounded-circle d-flex justify-content-center align-items-center"
+                class="position-relative nav-link text-primary border border-primary rounded-circle d-flex justify-content-center align-items-center"
                 style="width: 40px; height: 40px"
                 ><span class="material-symbols-outlined">shopping_bag</span>
+                <span
+                  class="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-info text-center fs-10 d-flex justify-content-center align-items-center"
+                  style="width: 22px; height: 22px"
+                >
+                  <!-- 可選串聯 -->
+                  {{ this.cart?.carts?.length }}
+                  <span class="visually-hidden">unread messages</span>
+                </span>
               </router-link>
             </li>
           </ul>
@@ -43,3 +51,34 @@
     </div>
   </nav>
 </template>
+
+<script>
+import axios from 'axios'
+
+const { VITE_URL, VITE_APP_PATH } = import.meta.env
+
+export default {
+  data () {
+    return {
+      cart: {}
+    }
+  },
+  methods: {
+    // 產品列表
+    getCart () {
+      axios
+        .get(`${VITE_URL}/v2/api/${VITE_APP_PATH}/cart`)
+        .then((res) => {
+          this.cart = res.data.data
+          console.log(this.cart)
+        })
+        .catch((err) => {
+          alert(err.response.data.message)
+        })
+    }
+  },
+  mounted () {
+    this.getCart()
+  }
+}
+</script>
