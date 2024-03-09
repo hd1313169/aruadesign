@@ -15,22 +15,10 @@
       <h2 class="text-primary text-center mb-40">產品列表</h2>
       <ul class="d-flex flex-wrap justify-content-center p-0">
         <li class="products-submenu px-24 py-4 px-md-80 py-md-8">
-          <a href="#">全部</a>
+          <routerLink :to="`/products`">全部</routerLink>
         </li>
-        <li class="products-submenu px-24 py-4 px-md-80 py-md-8">
-          <a href="#">客廳</a>
-        </li>
-        <li class="products-submenu px-24 py-4 px-md-80 py-md-8">
-          <a href="#">廚房</a>
-        </li>
-        <li class="products-submenu px-24 py-4 px-md-80 py-md-8">
-          <a href="#">書房</a>
-        </li>
-        <li class="products-submenu px-24 py-4 px-md-80 py-md-8">
-          <a href="#">燈飾</a>
-        </li>
-        <li class="products-submenu px-24 py-4 px-md-80 py-md-8">
-          <a href="#">其他</a>
+        <li v-for="item in categories" :key="item" class="products-submenu px-24 py-4 px-md-80 py-md-8">
+          <routerLink :to="`/products?category=${item}`">{{ item }}</routerLink>
         </li>
       </ul>
     </div>
@@ -42,8 +30,14 @@
         <img class="img-fluid mb-8 mb-md-16" :src="item.imageUrl" alt="圖片" />
         <h4 class="mb-8">{{ item.title }}</h4>
         <p class="fs-14 mb-8">{{ item.content }}</p>
-        <h5><span class="fs-14 me-4">優惠價</span>{{ item.price }} <span class="fs-14">元</span></h5>
-        <routerLink :to="`product/${item.id}`" class="stretched-link"></routerLink>
+        <h5>
+          <span class="fs-14 me-4">售價</span>{{ item.price }}
+          <span class="fs-14">元</span>
+        </h5>
+        <routerLink
+          :to="`product/${item.id}`"
+          class="stretched-link"
+        ></routerLink>
       </li>
     </ul>
     <!-- 產品列表 -->
@@ -77,18 +71,28 @@ export default {
   // 資料
   data () {
     return {
-      products: []
+      products: [],
+      categories: ['客廳', '廚房', '書房', '燈飾', '臥房']
+    }
+  },
+  watch: {
+    'route.query': {
+      handler () {
+        this.getData()
+      },
+      deep: true
     }
   },
   methods: {
     // 取得資料
     getData () {
-      const url = `${VITE_URL}/v2/api/${VITE_APP_PATH}/products/all`
+      const { category = '' } = this.$route.query
       axios
-        .get(url)
+        .get(
+          `${VITE_URL}/v2/api/${VITE_APP_PATH}/products?category=${category}`
+        )
         .then((res) => {
           this.products = res.data.products
-          console.log(this.products)
         })
         .catch((err) => {
           alert(err.response.data.message)
