@@ -1,16 +1,6 @@
 <template>
-  <div class="pb-160 pb-md-80"></div>
+  <div class="pb-160 pb-md-120"></div>
   <div class="container">
-    <!-- 麵包屑 -->
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="#">首頁</a></li>
-        <li class="breadcrumb-item"><a href="#">產品</a></li>
-        <li class="breadcrumb-item active" aria-current="page">產品內頁</li>
-      </ol>
-    </nav>
-    <!-- 麵包屑 -->
-
     <div class="mb-80">
       <!-- 產品 -->
       <div class="row">
@@ -85,6 +75,10 @@
         <!-- 產品資訊 -->
       </div>
       <!-- 產品 -->
+
+      <router-link to="/products" class="w-100 d-flex justify-content-center align-items-center border-top border-bottom text-center text-secondary mt-40 py-8"><span class="material-symbols-outlined me-4 align-middle">
+keyboard_return
+</span>返回列表</router-link>
     </div>
   </div>
 </template>
@@ -110,9 +104,6 @@ export default {
         .get(`${VITE_URL}/v2/api/${VITE_APP_PATH}/product/${id}`)
         .then((res) => {
           this.product = res.data.product
-        })
-        .catch((err) => {
-          alert(err.response.data.message)
         })
     },
     ...mapActions(cartStore, ['addToCart'])

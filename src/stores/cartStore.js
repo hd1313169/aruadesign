@@ -16,7 +16,7 @@ export default defineStore('counter', {
           this.carts = res.data.data
           this.final_total = res.data.data.final_total
           this.total = res.data.data.total
-          console.log(this.carts.carts)
+          // console.log(this.carts.carts)
         })
     },
     // 加入購物車
@@ -29,7 +29,6 @@ export default defineStore('counter', {
       axios
         .post(`${VITE_URL}/v2/api/${VITE_APP_PATH}/cart`, { data: order })
         .then((res) => {
-          alert(res.data.message)
           this.getCart()
         })
     }

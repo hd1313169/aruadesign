@@ -1,20 +1,8 @@
 <template>
-  <div class="pb-160 pb-md-80"></div>
+  <div class="pb-160 pb-md-120"></div>
   <div class="container">
-    <!-- 麵包屑 -->
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="#">首頁</a></li>
-        <li class="breadcrumb-item active" aria-current="page">購物車</li>
-      </ol>
-    </nav>
-    <!-- 麵包屑 -->
-
     <!-- 標題 -->
-    <div class="d-flex justify-content-between align-items-end mb-8 mt-40">
-      <h2 class="text-primary">購物車</h2>
-      <button class="border-0 text-gray">全部刪除</button>
-    </div>
+    <h2 class="text-primary mb-8">購物車</h2>
 
     <!-- 購物車列表 -->
     <table class="table align-middle">
@@ -28,17 +16,33 @@
         </tr>
       </thead>
       <!-- 表頭 -->
-      <tbody>
+      <tbody v-if="carts.carts.length === 0" class="border-bottom">
+        <tr>
+          <td>
+            <p class="py-40 text-secondary">無色無形，唯有心靈深處閃耀永恆...</p>
+          </td>
+      </tr>
+      </tbody>
+      <tbody v-else>
         <!-- 列表 -->
         <tr v-for="item in carts.carts" :key="item.id">
           <!-- 資訊 -->
           <td class="py-40 text-primary">
             <div class="d-flex align-items-center">
-              <img :src="item.product.imageUrl" alt="圖片" class="me-16 d-none d-md-block" style="width: 10%;" />
-            <div>
-              <p class="fw-bold">{{ item.product.title }}</p>
-            <p>${{ item.product.price }}</p>
-            </div>
+              <img
+                :src="item.product.imageUrl"
+                alt="圖片"
+                class="me-16 d-none d-md-block"
+                style="width: 10%"
+              />
+              <div class="position-relative">
+                <p class="fw-bold">{{ item.product.title }}</p>
+                <p>${{ item.product.price }}</p>
+                <routerLink
+                  :to="`product/${item.product.id}`"
+                  class="stretched-link"
+                ></routerLink>
+              </div>
             </div>
           </td>
 
@@ -55,7 +59,11 @@
             <p class="text-end">${{ item.total }}</p>
           </td>
           <td>
-            <button class="btn ms-auto d-block">
+            <button
+              @click="removeCartItem(item)"
+              type="button"
+              class="btn ms-auto d-block"
+            >
               <span
                 class="material-symbols-outlined text-gray text-end align-middle"
               >
@@ -71,8 +79,15 @@
     <!-- 購物車列表 -->
 
     <!-- 計算 -->
-    <div class="row justify-content-end text-primary mb-48 mb-md-80">
-      <div class="col-12 col-lg-3 col-md-6">
+    <div class="row justify-content-between align-items-center mb-48 mb-md-80">
+      <div class="col-6">
+        <button @click="removeAllItem()" class="border-0 text-gray hover-danger d-flex.align-items-center" type="button">
+          <span class="material-symbols-outlined align-middle me-4">
+delete
+</span>清空購物車
+      </button>
+      </div>
+      <div class="col-6 col-lg-3 col-md-6">
         <!-- 優惠券 -->
         <!-- <div
           class="d-flex justify-content-between align-items-center py-24 py-md-40 border-bottom"
@@ -102,7 +117,7 @@
       <h2 class="text-primary">訂購人資料</h2>
       <div class="row text-primary">
         <div class="col-12 col-md-6 mb-24">
-          <label for="title" class="form-label mb-2">姓名</label>
+          <label class="form-label mb-2">姓名</label>
           <input
             type="text"
             class="form-control rounded-0"
@@ -110,7 +125,7 @@
           />
         </div>
         <div class="col-12 col-md-6 mb-24">
-          <label for="title" class="form-label mb-2">信箱</label>
+          <label class="form-label mb-2">信箱</label>
           <input
             type="text"
             class="form-control rounded-0"
@@ -118,7 +133,7 @@
           />
         </div>
         <div class="col-12 col-md-6 mb-24">
-          <label for="title" class="form-label mb-2">電話</label>
+          <label class="form-label mb-2">電話</label>
           <input
             type="text"
             class="form-control rounded-0"
@@ -126,7 +141,7 @@
           />
         </div>
         <div class="col-12 col-md-6 mb-24">
-          <label for="title" class="form-label mb-2">地址</label>
+          <label class="form-label mb-2">地址</label>
           <input
             type="text"
             class="form-control rounded-0"
@@ -134,6 +149,7 @@
           />
         </div>
         <div class="col-12 mb-40">
+          <label class="form-label mb-2">備註</label>
           <textarea class="w-100 form-control rounded-0" rows="4"></textarea>
         </div>
 
@@ -172,6 +188,27 @@ export default {
           // 更新購物車
           this.getCart()
         })
+    },
+    // 刪除個別購物車品項
+    removeCartItem (item) {
+      axios
+        .delete(`${VITE_URL}/v2/api/${VITE_APP_PATH}/cart/${item.id}`)
+        .then((res) => {
+          // 提示訊息
+          alert(`${item.title}已刪除`)
+          // 更新購物車
+          this.getCart()
+        })
+    },
+    // 刪除全部購物車
+    removeAllItem () {
+      axios.delete(`${VITE_URL}/v2/api/${VITE_APP_PATH}/carts`).then((res) => {
+        // 提示訊息
+        alert('購物車已清空')
+
+        // 更新購物車
+        this.getCart()
+      })
     }
   },
   mounted () {}

@@ -1,15 +1,6 @@
 <template>
-  <div class="pb-160 pb-md-80"></div>
+  <div class="pb-160 pb-md-120"></div>
   <div class="container">
-    <!-- 麵包屑 -->
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="#">首頁</a></li>
-        <li class="breadcrumb-item active" aria-current="page">關於我們</li>
-      </ol>
-    </nav>
-    <!-- 麵包屑 -->
-
     <!-- 關於我們 -->
     <div class="position-relative text-primary mb-120 mb-md-160">
       <div class="row align-items-center">
