@@ -1,4 +1,5 @@
 <template>
+  <div class="pb-160 pb-md-80"></div>
   <div class="container">
     <!-- 麵包屑 -->
     <nav aria-label="breadcrumb">
@@ -57,7 +58,7 @@
             </div>
 
             <a
-              @click.prevent="addToCart(product.id, 1)"
+              @click.prevent="addToCart(product.id, qty)"
               class="d-block btn btn-primary text-center rounded-0 mb-40"
               >加入購物車</a
             >
@@ -90,7 +91,8 @@
 
 <script>
 import axios from 'axios'
-
+import { mapActions } from 'pinia'
+import cartStore from '@/stores/cartStore'
 const { VITE_URL, VITE_APP_PATH } = import.meta.env
 
 export default {
@@ -113,21 +115,7 @@ export default {
           alert(err.response.data.message)
         })
     },
-    // 加入購物車
-    addToCart () {
-      // 參數預設值
-      // post 的 order 參數
-      const order = {
-        product_id: this.product.id,
-        qty: this.qty
-      }
-
-      axios
-        .post(`${VITE_URL}/v2/api/${VITE_APP_PATH}/cart`, { data: order })
-        .then((res) => {
-          alert(res.data.message)
-        })
-    }
+    ...mapActions(cartStore, ['addToCart'])
   },
   mounted () {
     this.getProduct()

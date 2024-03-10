@@ -1,10 +1,10 @@
 <template>
-  <nav class="navbar-light bg-light">
-    <div class="container">
+  <nav class="navbar-light bg-light position-fixed w-100 header pt-8 pb-4 pt-md-16 pb-md-8">
+    <div class="container ">
       <div
-        class="d-flex flex-column flex-md-row justify-content-center justify-content-md-between py-24"
+        class="d-flex flex-column flex-md-row justify-content-center justify-content-md-between"
       >
-        <div class="d-flex justify-content-center mb-24 mb-md-0">
+        <div class="d-flex justify-content-center mb-16 mb-md-0">
           <routerLink class="navbar-brand logo" to="/">
             <img src="../assets/images/logo.svg" alt="aruadesign" />
           </routerLink>
@@ -12,26 +12,26 @@
 
         <div class="d-flex justify-content-center">
           <ul class="navbar-nav align-items-center">
-            <li class="nav-item me-24 me-sm-64 me-md-40">
+            <li class="nav-item mx-12 mx-sm-32 mx-md-20">
               <router-link to="/" class="nav-link text-primary text-center"
                 >首頁
               </router-link>
             </li>
-            <li class="nav-item me-24 me-sm-64 me-md-40">
+            <li class="nav-item mx-12 mx-sm-32 mx-md-20">
               <router-link
-                to="products"
+                to="/products"
                 class="nav-link text-primary text-center"
                 >產品
               </router-link>
             </li>
-            <li class="nav-item me-24 me-sm-64 me-md-40">
-              <router-link to="about" class="nav-link text-primary text-center"
+            <li class="nav-item mx-12 mx-sm-32 mx-md-20">
+              <router-link to="/about" class="nav-link text-primary text-center"
                 >關於我們
               </router-link>
             </li>
-            <li class="nav-item d-none d-md-block">
+            <li class="nav-item d-none d-md-block ms-md-20">
               <router-link
-                to="carts"
+                to="/carts"
                 class="position-relative nav-link text-primary border border-primary rounded-circle d-flex justify-content-center align-items-center"
                 style="width: 40px; height: 40px"
                 ><span class="material-symbols-outlined">shopping_bag</span>
@@ -40,7 +40,7 @@
                   style="width: 22px; height: 22px"
                 >
                   <!-- 可選串聯 -->
-                  {{ this.cart?.carts?.length }}
+                  {{ this.carts?.carts?.length }}
                   <span class="visually-hidden">unread messages</span>
                 </span>
               </router-link>
@@ -53,29 +53,15 @@
 </template>
 
 <script>
-import axios from 'axios'
-
-const { VITE_URL, VITE_APP_PATH } = import.meta.env
+import { mapActions, mapState } from 'pinia'
+import cartStore from '../stores/cartStore'
 
 export default {
-  data () {
-    return {
-      cart: {}
-    }
+  computed: {
+    ...mapState(cartStore, ['carts'])
   },
   methods: {
-    // 產品列表
-    getCart () {
-      axios
-        .get(`${VITE_URL}/v2/api/${VITE_APP_PATH}/cart`)
-        .then((res) => {
-          this.cart = res.data.data
-          console.log(this.cart)
-        })
-        .catch((err) => {
-          alert(err.response.data.message)
-        })
-    }
+    ...mapActions(cartStore, ['getCart'])
   },
   mounted () {
     this.getCart()

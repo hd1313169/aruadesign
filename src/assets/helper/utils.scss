@@ -172,6 +172,9 @@ li {
     font-family: "noto serif tc";
 }
 
+.header{
+    z-index: 9999;
+}
 .swipe {
     &-img {
         width: 400px;
