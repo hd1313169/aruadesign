@@ -21,6 +21,39 @@
     </div>
     <!-- 關於我們 -->
   </div>
+    <!-- 服務 -->
+    <div class="bg-secondary py-60 py-sm-80 text-white">
+    <div class="container">
+      <div class="row justify-content-center mb-40">
+        <div class="col-12 col-lg-4 mb-40 mb-lg-0">
+          <h2 class="mb-24">客製化服務</h2>
+          <p>
+            我們提供客製化服務，讓您的家具設計完全符合您的個人品味和空間需求。無論是您對尺寸、材質、風格還是功能有特定要求，我們都能為您量身打造獨一無二的家具。。無論您是要為您的家裡還是商業空間打造獨特風格，我們都將竭誠為您提供最優質的客製化服務，讓您的夢想成真。
+          </p>
+        </div>
+        <div class="col-12 col-md-10 col-lg-4 offset-lg-1">
+          <img
+            class="w-100"
+            src="../../assets/images/serve-process.svg"
+            alt="serve"
+          />
+        </div>
+      </div>
+
+      <div class="row align-items-end">
+        <div class="col-12 col-md-6">
+          <img class="w-100" src="../../assets/images/serve-1.png" alt="serve" />
+        </div>
+        <div class="col-12 col-md-3">
+          <img class="w-100" src="../../assets/images/serve-2.png" alt="serve" />
+        </div>
+        <div class="col-12 col-md-3">
+          <img class="w-100" src="../../assets/images/serve-3.png" alt="serve" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 服務 -->
 </template>
 
 <script>

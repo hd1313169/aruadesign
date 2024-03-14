@@ -33,23 +33,25 @@
     </ul>
     <!-- 產品列表 -->
 
-    <nav class="mb-80" aria-label="Page navigation">
-      <ul class="pagination justify-content-center">
-        <li class="page-item">
-          <a class="page-link" href="#" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-          </a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-          <a class="page-link" href="#" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
+    <nav aria-label="Page navigation" class="mb-80">
+            <ul class="pagination justify-content-center">
+                <li :class="{disabled: !pages.has_pre}" class="page-item">
+                    <button type="button" @click="getData(pages.current_page - 1)" class="page-link border-0" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </button>
+                </li>
+                <li v-for="(page, index) in pages.total_pages" :key="index"
+                    :class="{active: page===pages.current_page}" class="page-item">
+                    <button type="button" @click="getData(page)" class="page-link border-0">{{page}}</button>
+                </li>
+
+                <li :class="{disabled: !pages.has_next}" class="page-item">
+                    <button type="button" @click="getData(pages.current_page + 1)" class="page-link border-0" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </button>
+                </li>
+            </ul>
+        </nav>
   </div>
 </template>
 
@@ -63,7 +65,9 @@ export default {
   data () {
     return {
       products: [],
-      categories: ['客廳', '廚房', '書房', '燈飾', '臥房']
+      categories: ['客廳', '廚房', '書房', '燈飾', '臥房'],
+
+      pages: {}
     }
   },
   watch: {
@@ -76,14 +80,14 @@ export default {
   },
   methods: {
     // 取得資料
-    getData () {
-      const { category = '' } = this.$route.query
+    getData (page = 1) {
       axios
         .get(
-          `${VITE_URL}/v2/api/${VITE_APP_PATH}/products?category=${category}`
+          `${VITE_URL}/v2/api/${VITE_APP_PATH}/products?page=${page}`
         )
         .then((res) => {
           this.products = res.data.products
+          this.pages = res.data.pagination
         })
         .catch((err) => {
           alert(err.response.data.message)

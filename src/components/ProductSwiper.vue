@@ -76,7 +76,6 @@ export default {
         .get(url)
         .then((res) => {
           this.products = res.data.products
-          console.log(this.products)
         })
         .catch((err) => {
           alert(err.response.data.message)

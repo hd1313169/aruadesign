@@ -16,12 +16,12 @@
         </tr>
       </thead>
       <!-- 表頭 -->
-      <tbody v-if="carts.carts.length === 0" class="border-bottom">
+      <tbody v-if="carts.total === 0" class="border-bottom">
         <tr>
           <td>
-            <p class="py-40 text-secondary">無色無形，唯有心靈深處閃耀永恆...</p>
+            <p class="py-40 text-secondary">購物車還是空著的</p>
           </td>
-      </tr>
+        </tr>
       </tbody>
       <tbody v-else>
         <!-- 列表 -->
@@ -81,25 +81,17 @@
     <!-- 計算 -->
     <div class="row justify-content-between align-items-center mb-48 mb-md-80">
       <div class="col-6">
-        <button @click="removeAllItem()" class="border-0 text-gray hover-danger d-flex.align-items-center" type="button">
+        <button
+          @click="removeAllItem()"
+          class="border-0 text-gray hover-danger d-flex.align-items-center"
+          type="button"
+        >
           <span class="material-symbols-outlined align-middle me-4">
-delete
-</span>清空購物車
-      </button>
+            delete </span
+          >清空購物車
+        </button>
       </div>
       <div class="col-6 col-lg-3 col-md-6">
-        <!-- 優惠券 -->
-        <!-- <div
-          class="d-flex justify-content-between align-items-center py-24 py-md-40 border-bottom"
-        >
-          <p class="me-16">優惠券</p>
-          <select class="py-8 px-8 pe-80 border-primary text-primary">
-            <option>請選擇優惠券</option>
-            <option>1</option>
-          </select>
-        </div> -->
-        <!-- 優惠券 -->
-
         <!-- 總計 -->
         <div
           class="d-flex justify-content-between align-items-center py-16 py-md-24"
@@ -115,61 +107,110 @@ delete
     <!-- 訂購人資料 -->
     <div class="mb-80">
       <h2 class="text-primary">訂購人資料</h2>
-      <div class="row text-primary">
-        <div class="col-12 col-md-6 mb-24">
-          <label class="form-label mb-2">姓名</label>
-          <input
-            type="text"
-            class="form-control rounded-0"
-            placeholder="請輸入姓名"
-          />
-        </div>
-        <div class="col-12 col-md-6 mb-24">
-          <label class="form-label mb-2">信箱</label>
-          <input
-            type="text"
-            class="form-control rounded-0"
-            placeholder="請輸入信箱"
-          />
-        </div>
-        <div class="col-12 col-md-6 mb-24">
-          <label class="form-label mb-2">電話</label>
-          <input
-            type="text"
-            class="form-control rounded-0"
-            placeholder="請輸入電話"
-          />
-        </div>
-        <div class="col-12 col-md-6 mb-24">
-          <label class="form-label mb-2">地址</label>
-          <input
-            type="text"
-            class="form-control rounded-0"
-            placeholder="請輸入地址"
-          />
-        </div>
-        <div class="col-12 mb-40">
-          <label class="form-label mb-2">備註</label>
-          <textarea class="w-100 form-control rounded-0" rows="4"></textarea>
-        </div>
+      <v-form ref="form" v-slot="{ errors }" @submit="onSubmit()">
+        <div class="row text-primary">
+          <!-- 信箱 -->
+          <div class="col-12 col-md-6 mb-24">
+            <label for="email" class="form-label mb-2">Email</label>
+            <v-field
+              id="email"
+              name="email"
+              type="email"
+              class="form-control rounded-0"
+              :class="{ 'is-invalid': errors['email'] }"
+              placeholder="請輸入 Email"
+              rules="email|required"
+              v-model="form.user.email"
+            ></v-field>
+            <error-message
+              name="email"
+              class="invalid-feedback"
+            ></error-message>
+          </div>
 
-        <div class="col-12 col-md-4 offset-md-4">
-          <button class="w-100 btn btn-primary rounded-0">確認訂單</button>
+          <!-- 姓名 -->
+          <div class="col-12 col-md-6 mb-24">
+            <label for="name" class="form-label mb-2">收件人姓名</label>
+            <v-field
+              id="name"
+              name="姓名"
+              type="text"
+              class="form-control rounded-0"
+              :class="{ 'is-invalid': errors['姓名'] }"
+              placeholder="請輸入姓名"
+              rules="required"
+              v-model="form.user.name"
+            ></v-field>
+            <error-message name="姓名" class="invalid-feedback"></error-message>
+          </div>
+
+          <!-- 電話 -->
+          <div class="col-12 col-md-6 mb-24">
+            <label for="tel" class="form-label mb-2">收件人電話</label>
+            <v-field
+              id="tel"
+              name="電話"
+              type="text"
+              class="form-control rounded-0"
+              :class="{ 'is-invalid': errors['電話'] }"
+              placeholder="請輸入電話"
+              rules="required"
+              v-model="form.user.tel"
+            ></v-field>
+            <error-message name="電話" class="invalid-feedback"></error-message>
+          </div>
+
+          <!-- 收件人地址 -->
+          <div class="col-12 col-md-6 mb-24">
+            <label for="address" class="form-label mb-2">收件人地址</label>
+            <v-field
+              id="address"
+              name="地址"
+              type="text"
+              class="form-control rounded-0"
+              :class="{ 'is-invalid': errors['地址'] }"
+              placeholder="請輸入收件人地址"
+              rules="required"
+              v-model="form.user.address"
+            ></v-field>
+            <error-message name="地址" class="invalid-feedback"></error-message>
+          </div>
+
+          <div class="col-12 mb-40">
+            <label class="form-label mb-2">備註</label>
+            <textarea class="w-100 form-control rounded-0" rows="4"></textarea>
+          </div>
+
+          <div class="col-12 col-md-4 offset-md-4">
+            <button
+              :class="{ disabled: carts.total === 0 }"
+              class="w-100 btn btn-primary rounded-0"
+            >
+              確認訂單
+            </button>
+          </div>
         </div>
-      </div>
+      </v-form>
     </div>
     <!-- 訂購人資料 -->
   </div>
 </template>
+
 <script>
 import { mapActions, mapState } from 'pinia'
 import cartStore from '@/stores/cartStore'
 import axios from 'axios'
+
 const { VITE_URL, VITE_APP_PATH } = import.meta.env
 
 export default {
+  data () {
+    return {
+    }
+  },
   computed: {
-    ...mapState(cartStore, ['carts'])
+    ...mapState(cartStore, ['carts']),
+    ...mapState(cartStore, ['form'])
   },
   methods: {
     ...mapActions(cartStore, ['getCart']),
@@ -183,7 +224,9 @@ export default {
       }
 
       axios
-        .put(`${VITE_URL}/v2/api/${VITE_APP_PATH}/${item.id}`, { data: order })
+        .put(`${VITE_URL}/v2/api/${VITE_APP_PATH}/cart/${item.id}`, {
+          data: order
+        })
         .then((res) => {
           // 更新購物車
           this.getCart()
@@ -209,7 +252,9 @@ export default {
         // 更新購物車
         this.getCart()
       })
-    }
+    },
+
+    ...mapActions(cartStore, ['onSubmit'])
   },
   mounted () {}
 }
