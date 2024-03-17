@@ -107,7 +107,7 @@
     <!-- 訂購人資料 -->
     <div class="mb-80">
       <h2 class="text-primary">訂購人資料</h2>
-      <v-form ref="form" v-slot="{ errors }" @submit="onSubmit()">
+      <v-form ref="form" v-slot="{ errors }" @submit="createOrder">
         <div class="row text-primary">
           <!-- 信箱 -->
           <div class="col-12 col-md-6 mb-24">
@@ -183,6 +183,7 @@
 
           <div class="col-12 col-md-4 offset-md-4">
             <button
+              type="submit"
               :class="{ disabled: carts.total === 0 }"
               class="w-100 btn btn-primary rounded-0"
             >
@@ -206,11 +207,20 @@ const { VITE_URL, VITE_APP_PATH } = import.meta.env
 export default {
   data () {
     return {
+      // 表單
+      form: {
+        user: {
+          name: '',
+          email: '',
+          tel: '',
+          address: ''
+        },
+        message: ''
+      }
     }
   },
   computed: {
-    ...mapState(cartStore, ['carts']),
-    ...mapState(cartStore, ['form'])
+    ...mapState(cartStore, ['carts'])
   },
   methods: {
     ...mapActions(cartStore, ['getCart']),
@@ -254,8 +264,19 @@ export default {
       })
     },
 
-    ...mapActions(cartStore, ['onSubmit'])
+    // 提交訂單
+    createOrder (id) {
+      const order = this.form
+      axios.post(`${VITE_URL}/v2/api/${VITE_APP_PATH}/order`, { data: order })
+        .then((res) => {
+          console.log(res.data.orderId)
+          // this.$router.push(`/user/checkout/${res.data.orderId}`)
+          this.$router.push(`/comfirm/${res.data.orderId}`)
+          this.$refs.form.resetForm()
+        })
+    }
   },
-  mounted () {}
+  mounted () {
+  }
 }
 </script>

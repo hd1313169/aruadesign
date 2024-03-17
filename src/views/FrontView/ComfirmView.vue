@@ -19,7 +19,7 @@
       <!-- 表頭 -->
       <tbody>
         <!-- 列表 -->
-        <tr v-for="item in carts.carts" :key="item.id">
+        <tr v-for="item in order.products" :key="item.id">
           <!-- 資訊 -->
           <td class="py-40 text-primary">
             <div class="d-flex align-items-center">
@@ -57,7 +57,7 @@
           class="d-flex justify-content-between align-items-center py-16 py-md-24"
         >
           <p class="me-16 text-primary">總計</p>
-          <p class="fs-20 fw-bold text-end">${{ carts.total }}</p>
+          <p class="fs-20 fw-bold text-end">${{ order.total }}</p>
         </div>
         <!-- 總計 -->
       </div>
@@ -72,29 +72,25 @@
           <table class="w-100">
             <tr class="border-top border-bottom" height="80px">
               <td class="fw-bold">姓名</td>
-              <td>{{this.form.user.name}}</td>
+              <td>{{ order.user.name }}</td>
             </tr>
             <tr class="border-top border-bottom" height="80px">
               <td class="fw-bold">信箱</td>
-              <td>wsad71122@gmail.com</td>
+              <td>{{ order.user.email }}</td>
             </tr>
             <tr class="border-top border-bottom" height="80px">
               <td class="fw-bold">電話</td>
-              <td>0912345678</td>
+              <td>{{ order.user.tel }}</td>
             </tr>
             <tr class="border-top border-bottom" height="80px">
               <td class="fw-bold">地址</td>
-              <td>abc.cmn</td>
-            </tr>
-            <tr class="border-top border-bottom" height="80px">
-              <td class="fw-bold">備註</td>
-              <td></td>
+              <td>{{ order.user.address }}</td>
             </tr>
           </table>
         </div>
 
-        <div class="col-12 col-md-4 offset-md-4">
-          <button class="w-100 btn btn-primary rounded-0">確認結帳</button>
+        <div class="col-12 col-md-4 offset-md-4" >
+          <button type="button" @click.prevent="payOrder" class="w-100 btn btn-primary rounded-0">確認結帳</button>
         </div>
       </div>
     </div>
@@ -103,23 +99,39 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'pinia'
-import cartStore from '@/stores/cartStore'
+import axios from 'axios'
+const { VITE_URL, VITE_APP_PATH } = import.meta.env
 
 export default {
   data () {
     return {
+      orderId: '',
+      order: {}
     }
   },
-  computed: {
-    ...mapState(cartStore, ['carts']),
-    ...mapState(cartStore, ['form'])
-
-  },
   methods: {
-    ...mapActions(cartStore, ['getCart']),
-    ...mapActions(cartStore, ['getOrder'])
+    getOrder () {
+      axios
+        .get(`${VITE_URL}/v2/api/${VITE_APP_PATH}/order/${this.orderId}`)
+        .then((res) => {
+          this.order = res.data.order
+        })
+    },
+    payOrder () {
+      axios
+        .post(`${VITE_URL}/v2/api/${VITE_APP_PATH}/pay/${this.orderId}`)
+        .then(() => {
+          this.getOrder()
+          console.log('ok')
+          this.$router.push('/thankspage')
+        }).catch((err) => {
+          alert(err.response.data.message)
+        })
+    }
   },
-  mounted () {}
+  created () {
+    this.orderId = this.$route.params.orderId // 從路由取得訂單 id
+    this.getOrder()
+  }
 }
 </script>

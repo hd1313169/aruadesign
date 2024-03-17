@@ -8,22 +8,15 @@ import App from './App.vue'
 import router from './router'
 
 import { defineRule, configure, Field, Form, ErrorMessage } from 'vee-validate'
+import * as AllRules from '@vee-validate/rules'
+
 // 引入 VeeValidate 的 i18n 功能
 import { localize, setLocale } from '@vee-validate/i18n'
 // 引入 VeeValidate 的繁體中文語系檔
 import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json'
 
-defineRule('required', (value) => {
-  if (!value || !value.length) {
-    return '此欄位為必填'
-  }
-  return true
-})
-defineRule('email', (value) => {
-  if (!/[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,}/i.test(value)) {
-    return '請輸入有效的電子郵件地址'
-  }
-  return true
+Object.keys(AllRules).forEach((rule) => {
+  defineRule(rule, AllRules[rule])
 })
 
 // 將當前 VeeValidate 的語系設定為繁體中文

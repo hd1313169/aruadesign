@@ -28,7 +28,7 @@ const routes = [
         component: () => import('../views/FrontView/CartsView.vue')
       },
       {
-        path: 'comfirm',
+        path: 'comfirm/:orderId',
         component: () => import('../views/FrontView/ComfirmView.vue')
       },
       {

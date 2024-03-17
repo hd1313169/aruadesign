@@ -6,17 +6,7 @@ export default defineStore('counter', {
   state: () => ({
     carts: [],
     final_total: 0,
-    total: 0,
-    // 表單
-    form: {
-      user: {
-        name: '',
-        email: '',
-        tel: '',
-        address: ''
-      },
-      message: ''
-    }
+    total: 0
   }),
   actions: {
     getCart () {
@@ -40,33 +30,6 @@ export default defineStore('counter', {
         .then((res) => {
           this.getCart()
         })
-    },
-    // 提交訂單
-    onSubmit () {
-      const order = this.form
-      axios.post(`${VITE_URL}/v2/api/${VITE_APP_PATH}/order`, { data: order })
-        .then(res => {
-          // 提示訊息
-          alert(`${res.data.message}`)
-
-          // 清空表單
-          this.form.user = {
-            name: '',
-            email: '',
-            tel: '',
-            address: ''
-          }
-          this.form.message = ''
-
-          // 更新購物車
-          this.getCart()
-
-          // window.location = '/comfirm'
-        })
-    },
-
-    getOrder () {
-      console.log(this.form)
     }
   }
 })
