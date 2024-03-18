@@ -76,9 +76,28 @@
       </div>
       <!-- 產品 -->
 
-      <router-link to="/products" class="w-100 d-flex justify-content-center align-items-center border-top border-bottom text-center text-secondary mt-40 py-8"><span class="material-symbols-outlined me-4 align-middle">
-keyboard_return
-</span>返回列表</router-link>
+      <h4 class="mt-40 border-bottom border-gray pb-8 mb-24">推薦產品</h4>
+      <ul class="d-md-flex justify-content-between m-0 p-0 ps-md-8">
+        <li
+          v-for="item in products.slice(0, 3)"
+          :key="item.id"
+          class="text-primary position-relative me-md-8 mb-16 mb-md-0"
+        >
+          <img class="w-100 mb-16 swipe-img" :src="item.imageUrl" alt="圖片" />
+          <div class="ms-8">
+            <h3 class="fs-20 fw-bold mb-2">{{ item.title }}</h3>
+            <p class="fs-14 text-secondary">{{ item.unit }}</p>
+          </div>
+          <routerLink :to="`${item.id}`" class="stretched-link"></routerLink>
+        </li>
+      </ul>
+      <router-link
+        to="/products"
+        class="w-100 d-flex justify-content-center align-items-center border-top border-bottom text-center text-secondary mt-40 py-8"
+        ><span class="material-symbols-outlined me-4 align-middle">
+          keyboard_return </span
+        >返回列表</router-link
+      >
     </div>
   </div>
 </template>
@@ -93,7 +112,8 @@ export default {
   data () {
     return {
       product: {},
-      qty: 1
+      qty: 1,
+      products: []
     }
   },
   methods: {
@@ -106,9 +126,21 @@ export default {
           this.product = res.data.product
         })
     },
-    ...mapActions(cartStore, ['addToCart'])
+    ...mapActions(cartStore, ['addToCart']),
+    getData () {
+      const url = `${VITE_URL}/v2/api/${VITE_APP_PATH}/products/all`
+      axios
+        .get(url)
+        .then((res) => {
+          this.products = res.data.products
+        })
+        .catch((err) => {
+          alert(err.response.data.message)
+        })
+    }
   },
   mounted () {
+    this.getData()
     this.getProduct()
   }
 }

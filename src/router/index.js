@@ -36,6 +36,30 @@ const routes = [
         component: () => import('../views/FrontView/ThanksPage.vue')
       }
     ]
+  },
+  // 登入頁
+  {
+    path: '/login',
+    component: () => import('../views/LoginView.vue')
+  },
+  // 後台
+  {
+    path: '/admin',
+    component: () => import('../views/DashBoard.vue'),
+    children: [
+      {
+        path: 'productsManage',
+        component: () => import('../views/DahboardView/ProductsManage.vue')
+      },
+      {
+        path: 'orders',
+        component: () => import('../views/DahboardView/OrderView.vue')
+      },
+      {
+        path: 'uploadImage',
+        component: () => import('../views/DahboardView/UploadImage.vue')
+      }
+    ]
   }
 
 ]

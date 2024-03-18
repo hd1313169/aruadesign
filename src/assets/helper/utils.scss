@@ -10,6 +10,10 @@ li {
     list-style: none;
 }
 
+th{
+    font-weight: normal !important;
+    color: $primary !important;
+}
 .navbar-nav {
     flex-direction: row !important;
 }
@@ -170,6 +174,10 @@ li {
 
 .ff-zh {
     font-family: "noto serif tc";
+}
+
+.ff-sans{
+    font-family: "Noto Sans TC";
 }
 
 .hover {
