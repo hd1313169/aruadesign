@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar-light bg-light position-fixed w-100 header pt-8 pb-4 pt-md-16 pb-md-8">
+  <nav class="navbar-white bg-white position-fixed w-100 header pt-8 pb-4 pt-md-16 pb-md-8">
     <div class="container ">
       <div
         class="d-flex flex-column flex-md-row justify-content-center justify-content-md-between"
