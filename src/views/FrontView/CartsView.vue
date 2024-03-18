@@ -83,7 +83,7 @@
       <div class="col-6">
         <button
           @click="removeAllItem()"
-          class="border-0 text-gray hover-danger d-flex.align-items-center"
+          class="bg-white border-0 text-gray hover-danger d-flex.align-items-center"
           type="button"
         >
           <span class="material-symbols-outlined align-middle me-4">

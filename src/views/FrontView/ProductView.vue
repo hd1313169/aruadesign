@@ -39,7 +39,7 @@
               <p>數量</p>
               <select
                 v-model="qty"
-                class="w-50 py-8 px-8 border-primary text-primary"
+                class="bg-white w-50 py-8 px-8 border-primary text-primary"
               >
                 <option v-for="qty in 5" :key="qty" :value="qty">
                   {{ qty }}
