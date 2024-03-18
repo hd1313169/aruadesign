@@ -76,7 +76,7 @@
       </div>
       <!-- 產品 -->
 
-      <h4 class="mt-40 border-bottom border-gray pb-8 mb-24">推薦產品</h4>
+      <h4 class="mt-40 border-bottom border-secondary border-gray pb-8 mb-24 text-primary">推薦產品</h4>
       <ul class="d-md-flex justify-content-between m-0 p-0 ps-md-8">
         <li
           v-for="item in products.slice(0, 3)"

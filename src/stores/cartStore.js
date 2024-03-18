@@ -28,6 +28,7 @@ export default defineStore('counter', {
       axios
         .post(`${VITE_URL}/v2/api/${VITE_APP_PATH}/cart`, { data: order })
         .then((res) => {
+          alert('已加入購物車')
           this.getCart()
         })
     }

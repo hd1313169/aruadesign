@@ -122,7 +122,6 @@ export default {
         .post(`${VITE_URL}/v2/api/${VITE_APP_PATH}/pay/${this.orderId}`)
         .then(() => {
           this.getOrder()
-          console.log('ok')
           this.$router.push('/thankspage')
         }).catch((err) => {
           alert(err.response.data.message)

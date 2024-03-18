@@ -1,15 +1,6 @@
 <template>
     <div class="pb-160 pb-md-120"></div>
   <div class="container">
-    <!-- 麵包屑 -->
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="#">首頁</a></li>
-        <li class="breadcrumb-item active" aria-current="page">購物車</li>
-      </ol>
-    </nav>
-    <!-- 麵包屑 -->
-
     <div class="row justify-content-center">
       <div class="col-12 col-md-6 col-lg-4">
         <!-- 感謝 -->
